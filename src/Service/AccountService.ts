@@ -1,4 +1,5 @@
 import {
+    GoogleSignInDTO,
     LogInDTO,
     LogInResponse,
     ResetPasswordDTO,
@@ -12,6 +13,7 @@ import { User } from '@domain/Models';
 export interface IAccountService {
     SignUp(data: SignUpDTO): Promise<void>;
     LogIn(data: LogInDTO): Promise<LogInResponse>;
+    GoogleSignIn(token: GoogleSignInDTO): Promise<LogInResponse>;
     GetUser(userId: string): Promise<User>;
     UserNameAvailable(userName: string): Promise<boolean>;
     UpdateInfo(data: UpdateInfoDTO, userId: string): Promise<void>;

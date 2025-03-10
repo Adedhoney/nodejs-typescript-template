@@ -9,6 +9,10 @@ export interface SignUpDTO {
     password: string;
 }
 
+export interface GoogleSignInDTO {
+    accessToken: string;
+}
+
 export interface LogInDTO {
     email: string;
     password: string;

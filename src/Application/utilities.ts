@@ -53,10 +53,43 @@ export interface ITokenPayload extends jwt.JwtPayload {
     sessionId: string;
 }
 
+export const generateRandomOTP = () => {
+    const min = 1000;
+    const max = 9999;
+    return `${Math.floor(Math.random() * (max - min + 1)) + min}`;
+};
+
 export const verifyAuthToken = (token: string) => {
     return jwt.verify(token, config.JWT.secret as jwt.Secret) as ITokenPayload;
 };
 
+export const getS3FileName = (
+    userId: string,
+    fileName: string,
+    date: number,
+) => {
+    return `${userId}__${date}__${fileName}`;
+};
+
+export const getConversationId = (senderId: string, receiverId: string) => {
+    return [senderId, receiverId].sort().join('');
+};
+
 export const getCurrentTimeStamp = () => {
     return Math.floor(+new Date() / 1000);
+};
+export const isEnumValue = (value: any, enumObject: any): boolean => {
+    return Object.values(enumObject).includes(value);
+};
+
+export const generateOtpToken = (email: string): string => {
+    return jwt.sign({ email }, config.JWT.secret as jwt.Secret, {
+        expiresIn: 300,
+    });
+};
+
+export const verifyOtpToken = (token: string) => {
+    return jwt.verify(token, config.JWT.secret as jwt.Secret) as {
+        email: string;
+    };
 };
